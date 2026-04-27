@@ -12,7 +12,7 @@
         }
 
         body{
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             background:#f5f7fa;
             scroll-behavior:smooth;
         }
@@ -20,7 +20,8 @@
         /* NAVBAR */
 
         nav{
-            background:#1e293b;
+            background: rgba(30,41,59,0.9);
+            backdrop-filter: blur(10px);
             padding:15px;
             position:sticky;
             top:0;
@@ -32,15 +33,16 @@
             color:white;
             margin:15px;
             text-decoration:none;
-            font-weight:bold;
-            font-size:16px;
+            font-weight:500;
+            font-size:15px;
+            transition:0.3s;
         }
 
         nav a:hover{
             color:#38bdf8;
         }
 
-        /* SECTION STYLE */
+        /* SECTIONS */
 
         section{
             padding:80px 20px;
@@ -50,25 +52,56 @@
         h1{
             margin-bottom:20px;
             color:#0f172a;
+            font-size:32px;
         }
 
         p{
             font-size:18px;
+            color:#475569;
+            max-width:600px;
+            margin:auto;
         }
 
-        ul{
-            list-style:none;
-        }
-
-        ul li{
-            padding:10px;
-            font-size:18px;
-        }
-
-        /* HOME SECTION */
+        /* HOME */
 
         #home{
-            background:#e0f2fe;
+            position: relative;
+            background-image: url('https://images.unsplash.com/photo-1596522354195-e84ae3c98731?q=80&w=1774&auto=format&fit=crop&ixlib=rb-4.1.0');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        #home::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            backdrop-filter: blur(6px);
+            background: rgba(0,0,0,0.5);
+        }
+
+        .content{
+            position:relative;
+            z-index:1;
+            color:white;
+            padding:40px;
+            border-radius:12px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .content h1{
+            font-size:48px;
+            color:white;
+        }
+
+        .content p{
+            color:#e2e8f0;
+            margin-top:10px;
         }
 
         /* ABOUT */
@@ -77,10 +110,54 @@
             background:white;
         }
 
+        /* HISTORY */
+
+        #history{
+            background:#f8fafc;
+        }
+
+        table{
+            width:80%;
+            margin:30px auto;
+            border-collapse:collapse;
+            box-shadow:0px 5px 15px rgba(0,0,0,0.1);
+            background:white;
+        }
+
+        th, td{
+            padding:12px;
+            border-bottom:1px solid #ddd;
+            text-align:center;
+        }
+
+        th{
+            background:#0284c7;
+            color:white;
+        }
+
+        tr:hover{
+            background:#f1f5f9;
+        }
+
         /* PRICING */
 
         #pricing{
-            background:#f1f5f9;
+            background: linear-gradient(to right,#4facfe,#00f2fe);
+            color:white;
+        }
+
+        #pricing h1{
+            color:white;
+        }
+
+        ul{
+            list-style:none;
+            margin-top:20px;
+        }
+
+        ul li{
+            padding:10px;
+            font-size:18px;
         }
 
         /* FACILITIES */
@@ -95,7 +172,55 @@
             background:#f1f5f9;
         }
 
-        /* BOOKING FORM */
+        /* POPUP BACKGROUND */
+.popup{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.5);
+    justify-content:center;
+    align-items:center;
+}
+
+/* POPUP BOX */
+.popup-box{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0px 10px 30px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-box h2{
+    margin-bottom:10px;
+}
+
+.popup-box button{
+    margin-top:15px;
+    padding:10px 20px;
+    border:none;
+    background:#0284c7;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* ANIMATION */
+@keyframes fadeIn{
+    from{
+        transform: scale(0.8);
+        opacity:0;
+    }
+    to{
+        transform: scale(1);
+        opacity:1;
+    }
+}
+        /* BOOKING */
 
         #book{
             background:#e0f2fe;
@@ -104,18 +229,18 @@
         form{
             background:white;
             padding:30px;
-            width:300px;
+            width:320px;
             margin:auto;
-            border-radius:10px;
-            box-shadow:0px 4px 10px rgba(0,0,0,0.1);
+            border-radius:12px;
+            box-shadow:0px 8px 20px rgba(0,0,0,0.1);
         }
 
         input{
             width:100%;
-            padding:10px;
+            padding:12px;
             margin-top:5px;
             margin-bottom:15px;
-            border-radius:5px;
+            border-radius:6px;
             border:1px solid #ccc;
         }
 
@@ -128,6 +253,7 @@
             font-size:16px;
             border-radius:6px;
             cursor:pointer;
+            transition:0.3s;
         }
 
         .btn:hover{
@@ -139,6 +265,7 @@
             color:white;
             text-align:center;
             padding:15px;
+            font-size:14px;
         }
 
     </style>
@@ -146,146 +273,65 @@
 
 <body>
 
-<!-- NAVBAR -->
-
 <nav>
     <a href="#home">Home</a>
     <a href="#about">About</a>
+    <a href="{% url 'history' %}">History</a>
     <a href="#pricing">Pricing</a>
     <a href="#facilities">Facilities</a>
     <a href="#contact">Contact</a>
-    <a href="#book">Book Now</a>
+    <a href="{% url 'booking' %}">Book Now</a>
 </nav>
 
-
-<!-- HOME -->
-
-<section id="home" style="
-background-image: url('https://images.unsplash.com/photo-1596522354195-e84ae3c98731?q=80&w=1774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-background-size: auto;
-background-position: center;
-color: white;
-padding: 80px;
-min-height: 100vh;"></section>
-
-    <h1>Grand Palace Auditorium</h1>
-    <p>Book the perfect venue for weddings, seminars, and events.</p>
-
+<section id="home">
+    <div class="content">
+        <h1>Grand Palace Auditorium</h1>
+        <p>Book the perfect venue for weddings, seminars, and events.</p>
+    </div>
 </section>
-
-
-<!-- ABOUT -->
 
 <section id="about">
-
     <h1>About Us</h1>
-
     <p>
-
         Grand Palace Auditorium provides a premium event experience with
         modern facilities, spacious seating, and excellent service support.
-
     </p>
-
 </section>
 
+<!-- HISTORY SECTION -->
 
-<!-- PRICING -->
 
-<section id="pricing" style="
-background: linear-gradient(to right,#4facfe,#00f2fe);
-color: white;
-padding: 80px;
-min-height: 100vh;
-">
 
+<section id="pricing">
     <h1>Pricing</h1>
-
     <ul>
-
-        <li>Full Day Booking – ₹15,000</li>
-
-        <li>Half Day Booking – ₹8,000</li>
-
-        <li>Hourly Booking – ₹2,000</li>
-
+        <li>Full Day Booking – ₹75,000</li>
+        <li>Half Day Booking – ₹45,000</li>
+        <li>Hourly Booking – ₹8,000</li>
     </ul>
-
 </section>
-
-
-<!-- FACILITIES -->
 
 <section id="facilities">
-
     <h1>Facilities</h1>
-
     <ul>
-
         <li>Air Conditioning</li>
-
         <li>High Quality Sound System</li>
-
         <li>HD Projector</li>
-
         <li>Large Parking Area</li>
-
         <li>Dining Space Available</li>
-
     </ul>
-
 </section>
-
-
-<!-- CONTACT -->
 
 <section id="contact">
-
     <h1>Contact</h1>
-
     <p>Email: grandpalace@email.com</p>
-
     <p>Phone: +91 9876543210</p>
-
 </section>
 
 
-<!-- BOOK NOW -->
-
-<section id="book">
-
-    <h1>Book Your Date</h1>
-
-    <form method="post">
-
-        {% csrf_token %}
-
-        <label>Name</label>
-        <input type="text" name="name" required>
-
-        <label>Date</label>
-        <input type="date" name="date" required>
-
-        <label>Time</label>
-        <input type="time" name="time" required>
-
-        <button class="btn" type="submit">
-
-            Confirm Booking
-
-        </button>
-
-    </form>
-
-</section>
-
-
-<!-- FOOTER -->
 
 <footer>
-
     © 2026 Grand Palace Auditorium | All Rights Reserved
-
 </footer>
 
 </body>

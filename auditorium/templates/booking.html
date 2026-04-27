@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Auditorium</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1e3a8a, #0f172a);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* CARD */
+
+#book{
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    padding:40px;
+    width:350px;
+    border-radius:16px;
+    box-shadow:0px 10px 30px rgba(0,0,0,0.3);
+    color:white;
+    text-align:center;
+}
+
+/* TITLE */
+
+h1{
+    margin-bottom:20px;
+    font-size:28px;
+}
+
+/* INPUTS */
+
+form{
+    display:flex;
+    flex-direction:column;
+}
+
+label{
+    text-align:left;
+    margin-top:10px;
+    font-size:14px;
+}
+
+input{
+    padding:12px;
+    margin-top:5px;
+    border:none;
+    border-radius:8px;
+    outline:none;
+    font-size:14px;
+}
+
+/* BUTTON */
+
+.btn{
+    margin-top:20px;
+    padding:12px;
+    background:#38bdf8;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#0ea5e9;
+}
+
+/* BACK LINK */
+
+.back{
+    display:block;
+    margin-top:15px;
+    color:#cbd5f5;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.back:hover{
+    text-decoration:underline;
+}
+.success-msg{
+    background:#22c55e;
+    color:white;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:15px;
+    text-align:center;
+    font-weight:500;
+}
+</style>
+</head>
+
+<body>
+<section id="book">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="success-msg">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <h1>Book Your Date</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Name</label>
+        <input type="text" name="name" placeholder="Enter your name" required>
+
+        <label>Date</label>
+        <input type="date" name="date" required>
+
+        <label>Time</label>
+        <input type="time" name="time" required>
+
+        <button class="btn" type="submit">
+            Confirm Booking
+        </button>
+    </form>
+
+    <a href="/" class="back">← Back to Home</a>
+
+</section>
+
+</body>
+</html>
